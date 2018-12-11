@@ -1,0 +1,85 @@
+1、vim /etc/hostname 比如控制节点改为controller，计算节点改为compute1，重启后生效
+
+之后步骤中的variable.sh中HOST_NAME和这里匹配即可
+
+
+
+2、chmod +x *.sh
+
+
+
+3、控制节点安装：
+
+【修改variable.sh执行controller.sh】
+
+HOST_NAME=("controller" "compute1" "compute2" "compute3")
+
+HOST_IP=("192.168.253.40" "192.168.253.41" "192.168.253.42" "192.168.253.43")
+
+
+
+
+
+
+
+控制节点安装插件：
+
+【修改variable.sh执行h3c-plugin.sh】
+
+HOST_NAME=("controller" "compute1" "compute2" "compute3")
+
+HOST_IP=("192.168.253.40" "192.168.253.41" "192.168.253.42" "192.168.253.43")
+
+VCFC_IP="192.168.253.253"
+
+VCFC_USER="sdn"
+
+VCFC_PASS="sdn12345"
+
+VCFC_PLUGIN_PATH=VCF_CONTROLLER_PLUGIN-E2601_pike_2017.10-py2.7.egg
+
+
+
+
+
+
+
+计算节点安装：
+
+【修改variable.sh执行compute.sh】
+
+HOST_NAME=("controller" "compute1" "compute2" "compute3")
+
+HOST_IP=("192.168.253.40" "192.168.253.41" "192.168.253.42" "192.168.253.43")
+
+
+
+
+
+
+
+计算节点安装s1020v：
+
+【修改variable.sh执行s1020v.sh
+
+其中对应关系为compute1---192.168.253.41---vds2-br---20.18.253.41---255.255.255.0---20.18.253.254---ens33
+
+意思是HOST_NAME和HOST_IP的第二个值与BRIDGE_NAME_LIST第一个值对应
+
+各项内容个数按需增加】
+
+HOST_NAME=("controller" "compute1" "compute2")
+
+HOST_IP=("192.168.253.40" "192.168.253.41" "192.168.253.42")
+
+BRIDGE_NAME_LIST=("vds2-br" "vds2-br")
+
+BRIDGE_IP_LIST=("20.18.253.41" "20.18.253.42")
+
+BRIDGE_NETMASK_LIST=("255.255.255.0" "255.255.255.0")
+
+BRIDGE_GATEWAY_LIST=("20.18.253.254" "20.18.253.254")
+
+BRIDGE_ETH_NAME_LIST=("ens33" "ens33")
+
+S1020V_FILE=s1020v_centos7.2-3.10.0-327.el7.x86_64-3.2.1.16-x86_64.rpm
